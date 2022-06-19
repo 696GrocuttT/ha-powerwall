@@ -222,6 +222,7 @@ def _fetch_powerwall_data(power_wall: Powerwall) -> PowerwallData:
         grid_services_active=power_wall.is_grid_services_active(),
         grid_status=power_wall.get_grid_status(),
         backup_reserve=backup_reserve,
+        operation_mode=power_wall.get_operation_mode(),
     )
 
 

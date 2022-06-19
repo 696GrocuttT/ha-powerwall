@@ -117,6 +117,7 @@ async def async_setup_entry(
     data = coordinator.data
     entities: list[PowerWallEntity] = [
         PowerWallChargeSensor(powerwall_data),
+        PowerWallOperationModeSensor(powerwall_data),
     ]
 
     if data.backup_reserve is not None:
@@ -195,6 +196,22 @@ class PowerWallBackupReserveSensor(PowerWallEntity, SensorEntity):
         if self.data.backup_reserve is None:
             return None
         return round(self.data.backup_reserve)
+
+
+class PowerWallOperationModeSensor(PowerWallEntity, SensorEntity):
+    """Representation of the Powerwall operation mode setting."""
+
+    _attr_name = "Powerwall Operation Mode"
+    _attr_device_class = SensorDeviceClass.BATTERY
+
+    @property
+    def unique_id(self) -> str:
+        """Device Uniqueid."""
+        return f"{self.base_unique_id}_operation_mode"
+
+    @property
+    def native_value(self) -> str:
+        return self.data.operation_mode.value
 
 
 class PowerWallEnergyDirectionSensor(PowerWallEntity, SensorEntity):

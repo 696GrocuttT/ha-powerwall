@@ -13,6 +13,7 @@ from tesla_powerwall import (
     PowerwallStatus,
     SiteInfo,
     SiteMaster,
+    OperationMode,
 )
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
@@ -40,6 +41,7 @@ class PowerwallData:
     grid_services_active: bool
     grid_status: GridStatus
     backup_reserve: float | None
+    operation_mode: OperationMode
 
 
 class PowerwallRuntimeData(TypedDict):
