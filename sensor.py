@@ -117,6 +117,8 @@ async def async_setup_entry(
     data = coordinator.data
     entities: list[PowerWallEntity] = [
         PowerWallChargeSensor(powerwall_data),
+        PowerWallCapacitySensor(powerwall_data),
+        PowerWallStoredEnergySensor(powerwall_data),
         PowerWallOperationModeSensor(powerwall_data),
     ]
 
@@ -152,6 +154,44 @@ class PowerWallChargeSensor(PowerWallEntity, SensorEntity):
         """Get the current value in percentage."""
         return round(self.data.charge)
 
+
+class PowerWallCapacitySensor(PowerWallEntity, SensorEntity):
+    """Representation of an Powerwall charge sensor."""
+
+    _attr_name = "Powerwall Capacity"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+    _attr_device_class = SensorDeviceClass.BATTERY
+
+    @property
+    def unique_id(self) -> str:
+        """Device Uniqueid."""
+        return f"{self.base_unique_id}_capacity"
+
+    @property
+    def native_value(self) -> int:
+        """Get the current value in kwh."""
+        return round(self.data.capacity)
+
+
+class PowerWallStoredEnergySensor(PowerWallEntity, SensorEntity):
+    """Representation of an Powerwall charge sensor."""
+
+    _attr_name = "Powerwall Energy"
+    _attr_state_class = SensorStateClass.MEASUREMENT
+    _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
+    _attr_device_class = SensorDeviceClass.BATTERY
+
+    @property
+    def unique_id(self) -> str:
+        """Device Uniqueid."""
+        return f"{self.base_unique_id}_energy"
+
+    @property
+    def native_value(self) -> int:
+        """Get the current value in kwh."""
+        return round(self.data.energy)
+                
 
 class PowerWallEnergySensor(PowerWallEntity, SensorEntity):
     """Representation of an Powerwall Energy sensor."""

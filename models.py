@@ -36,6 +36,8 @@ class PowerwallData:
     """Point in time data for the powerwall integration."""
 
     charge: float
+    capacity: float
+    energy: float
     site_master: SiteMaster
     meters: MetersAggregates
     grid_services_active: bool
