@@ -161,7 +161,7 @@ class PowerWallCapacitySensor(PowerWallEntity, SensorEntity):
     _attr_name = "Powerwall Capacity"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
-    _attr_device_class = SensorDeviceClass.BATTERY
+    _attr_device_class = SensorDeviceClass.ENERGY_STORAGE
 
     @property
     def unique_id(self) -> str:
@@ -180,7 +180,7 @@ class PowerWallStoredEnergySensor(PowerWallEntity, SensorEntity):
     _attr_name = "Powerwall Energy"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_native_unit_of_measurement = UnitOfEnergy.KILO_WATT_HOUR
-    _attr_device_class = SensorDeviceClass.BATTERY
+    _attr_device_class = SensorDeviceClass.ENERGY_STORAGE
 
     @property
     def unique_id(self) -> str:
@@ -242,7 +242,11 @@ class PowerWallOperationModeSensor(PowerWallEntity, SensorEntity):
     """Representation of the Powerwall operation mode setting."""
 
     _attr_name = "Powerwall Operation Mode"
-    _attr_device_class = SensorDeviceClass.BATTERY
+    _attr_device_class = SensorDeviceClass.ENUM
+
+    @property
+    def options(self) -> list:
+        return ["self_consumption", "autonomous"]
 
     @property
     def unique_id(self) -> str:
