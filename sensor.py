@@ -169,9 +169,9 @@ class PowerWallCapacitySensor(PowerWallEntity, SensorEntity):
         return f"{self.base_unique_id}_capacity"
 
     @property
-    def native_value(self) -> int:
+    def native_value(self) -> float:
         """Get the current value in kwh."""
-        return round(self.data.capacity)
+        return self.data.capacity
 
 
 class PowerWallStoredEnergySensor(PowerWallEntity, SensorEntity):
@@ -188,9 +188,9 @@ class PowerWallStoredEnergySensor(PowerWallEntity, SensorEntity):
         return f"{self.base_unique_id}_energy"
 
     @property
-    def native_value(self) -> int:
+    def native_value(self) -> float:
         """Get the current value in kwh."""
-        return round(self.data.energy)
+        return self.data.energy
                 
 
 class PowerWallEnergySensor(PowerWallEntity, SensorEntity):

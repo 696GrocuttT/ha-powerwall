@@ -217,8 +217,8 @@ def _fetch_powerwall_data(power_wall: Powerwall) -> PowerwallData:
 
     return PowerwallData(
         charge=power_wall.get_charge(),
-        capacity=power_wall.get_capacity(),
-        energy=power_wall.get_energy(),
+        capacity=power_wall.get_capacity()/1000.0,
+        energy=power_wall.get_energy()/1000.0,
         site_master=power_wall.get_sitemaster(),
         meters=power_wall.get_meters(),
         grid_services_active=power_wall.is_grid_services_active(),
